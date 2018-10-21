@@ -250,3 +250,119 @@ Output:
 	- Run program to adjust `m` and `b` to minimize loss based on inputs.
 - Final model will fit a good line through data and will be able to  predict correctly `y` value for given`x` input.
 ***In summary***, We will build the graph then we will move to the training and finally we will use some test data to asses the accuracy of our model.
+
+### Building Linear Regression Model
+
+```python
+import tensorflow as tf
+
+# y = Wx + b
+
+# x will be place holder
+# m and b will change by model
+# W some weight for m
+
+# Create some X values
+# Create some Y values
+
+# x = [1, 2, 3,4]
+# y = [0, -1, -2, -3]
+
+# these points are smaller not far from 1
+W = tf.Variable([-.5], dtype=tf.float32)
+b = tf.Variable([.5], dtype=tf.float32)
+
+# We see the number how accurate
+# If our guess is far from the real answer the data will take time to train
+# If our guess is near to the real data it will take less time to train
+
+x = tf.placeholder(dtype=tf.float32)
+y = tf.placeholder(dtype=tf.float32)
+
+linear_model = W * x + b
+
+# Train
+
+x_train = [1, 2, 3, 4]
+y_train = [0, -1, -2, -3]
+
+session = tf.Session()
+# Set the global initializer for variable nodes
+init = tf.global_variables_initializer()
+session.run(init)
+
+# Run our linear mode and pass values
+print(session.run(linear_model, {x: x_train }))
+```
+Output:
+
+`[ 0.  -0.5 -1.  -1.5]`
+
+So when we check out values with y_train (The values we expect) actually we are not very far.
+
+The **_loss_** is consider the difference between the output and the y_train.
+Our model is minimized by adjusting the W and b values. By adjusting the slope `W` and our `y` intercept.
+So basically our aims to closer the output values to the `y_train` values.
+We will create our loss model, as `loss variable` below the `linear_model`
+```python
+loss = tf.reduce_sum(tf.square(linear_model - y))
+```
+Here we will take the square of each point and take absolute to find the difference.
+
+```python
+import tensorflow as tf
+
+# y = Wx + b
+
+# x will be place holder
+# m and b will change by model
+# W some weight for m
+
+# Create some X values
+# Create some Y values
+
+# x = [1, 2, 3,4]
+# y = [0, -1, -2, -3]
+
+# these points are smaller not far from 1
+W = tf.Variable([-.5], dtype=tf.float32)
+b = tf.Variable([.5], dtype=tf.float32)
+
+# We see the number how accurate
+# If our guess is far from the real answer the data will take time to train
+# If our guess is near to the real data it will take less time to train
+
+x = tf.placeholder(dtype=tf.float32)
+y = tf.placeholder(dtype=tf.float32)
+
+linear_model = W * x + b
+
+loss = tf.reduce_sum(tf.square(linear_model - y))
+
+# Train
+
+x_train = [1, 2, 3, 4]
+#         [ 0.  -0.5 -1.  -1.5] - The values we received
+y_train = [0, -1, -2, -3]
+
+
+session = tf.Session()
+# Set the global initializer for variable nodes
+init = tf.global_variables_initializer()
+session.run(init)
+
+# Run our linear mode and pass values
+# print(session.run(linear_model, {x: x_train}))
+print(session.run(loss, {x: x_train, y:y_train}))
+```
+Output:
+```python
+3.5
+```
+we get a loss of 3.5 that a very resonable since we started form -0.5
+
+> !Alert if we give w=.5 and b=-.5 then we would have a loss of 31.5
+This is why a perdition is important
+
+
+Epox: The number of time we want to train our model.
