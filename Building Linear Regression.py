@@ -40,5 +40,11 @@ session.run(init)
 # Loop
 # Run the train variable
 for i in range (1000):
-    session.run(train, {x: x_train, y:y_train})
-print(session.run([W,b]))
+    session.run(train, {x: x_train, y: y_train})
+new_W, new_b, new_loss = session.run([W, b, loss], {x: x_train, y: y_train})
+# print("New W: %s"%new_W)
+# print("New b: %s"%new_b)
+# print("New loss: %s"%new_loss)
+
+# send an array of x
+print(session.run(linear_model, {x: [10, 20, 30, 40]}))
