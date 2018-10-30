@@ -365,4 +365,93 @@ we get a loss of 3.5 that a very resonable since we started form -0.5
 This is why a perdition is important
 
 
-Epox: The number of time we want to train our model.
+
+
+### Building Linear Regression
+Previously we worked on building competition graph. In this part we will train our data, optimize the value of 
+w and b, and minimizing the loss value. Our loss was `3.5`. We will try to make this close to zero.
+
+We train our model to minimize the loss. We will adjust the loss that will adjust w and b (tensor variables).
+After having the suitable values for w and b our loss will be adjusted close to zero possibly. After that we will feed the x values and get the y values. 
+We will use tensorflow core functions, Gradient Descent and optimize function.
+
+We create an optimizer.
+
+`optimzer = tf.train.GradientDescentOptimizer(0.01)`
+
+0.01 is the learning rate. It is how the -.5 and .5 will be modified each time. If make this value very low then it will learn 
+very slow and consume timing. In case, we set the learning rate very high we won't get the accurate model, It will be adjusting the value with hight values it will be hard ping the correct result.
+
+```python
+loss = tf.reduce_sum(tf.square(linear_model - y))
+optimizer = tf.train.GradientDescentOptimizer(0.01)
+train = optimizer.minimize(loss)
+```
+
+It will use the learning rate of `0.01` and it will adjust in way to minimize the `loss` function
+> **_loss_** is the difference between the current value of  w and b, and the expected values. Simply it is the **difference between the `y`** but it is highly dependent on `w` and `b`.
+
+>**_Remember_** x and y are placeholder, w and b are tensor variable only place that can be changed (adjusted).
+
+We set the number of time we want to train our model that is called epox.
+
+> If we run for a long time it will take time to train the data. and if don't run it for enough time, It won't be able to learn.
+
+```python
+# Loop
+# Run the train variable
+for i in range (1000):
+    session.run(train, {x: x_train, y:y_train})
+print(session.run([W,b]))
+```
+
+All:
+```python
+import tensorflow as tf
+
+# y = Wx + b
+
+# x will be place holder
+# m and b will change by model
+# W some weight for m
+
+# Create some X values
+# Create some Y values
+
+# x = [1, 2, 3,4]
+# y = [0, -1, -2, -3]
+
+# these points are smaller not far from 1
+W = tf.Variable([-.5], dtype=tf.float32)
+b = tf.Variable([.5], dtype=tf.float32)
+
+# We see the number how accurate
+# If our guess is far from the real answer the data will take time to train
+# If our guess is near to the real data it will take less time to train
+
+x = tf.placeholder(dtype=tf.float32)
+y = tf.placeholder(dtype=tf.float32)
+
+linear_model = W * x + b
+
+loss = tf.reduce_sum(tf.square(linear_model - y))
+
+# Train
+
+x_train = [1, 2, 3, 4]
+#         [ 0.  -0.5 -1.  -1.5] - The values we received
+y_train = [0, -1, -2, -3]
+
+
+session = tf.Session()
+# Set the global initializer for variable nodes
+init = tf.global_variables_initializer()
+session.run(init)
+print(session.run(loss, {x: x_train, y:y_train}))
+```
+
+Output:
+```python
+[array([-0.9999988], dtype=float32), array([0.9999964], dtype=float32)]
+```
+w is very close to -1 and b close to +1.
