@@ -567,3 +567,28 @@ Output:
 [ -8.999992 -18.99998  -28.999968 -38.999958]
 ```
 It trained our Linear Regression Model. 
+
+### Import CIFAR Packages
+We need to download the cifar from an external source to use it in this project. You can download the CIFAR-10 dataset from https://www.cs.toronto.edu/~kriz/cifar.html. This is provided as open-source.
+
+> The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images 
+The dataset is divided into five training batches and one test batch, each with 10000 images. The test batch contains exactly 1000 randomly-selected images from each class. The training batches contain the remaining images in random order, but some training batches may contain more images from one class than another. Between them, the training batches contain exactly 5000 images from each class.
+> (CIFAR-10 URL: https://www.cs.toronto.edu/~kriz/cifar.html).
+
+Here we have the basic 10 categories such as airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck.
+
+If we want to make this complex we can work with CIFAR-100 dataset, which support hundred categories. CIFAR-100 consumes much time than CIFAR-10. In this project we want to train fast so will use CIFAR-10.
+
+Scroll down to the download part and download the python version. Download Link : https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
+Install Keras by using pip command in terminal or command prompt `pip install Keras`
+we need to put the cifar-10 in this location `C:\Program Files\Python36\Lib\site-packages\keras\datasets` and unzip it .
+
+![enter image description here](https://ibb.co/HtBr73q)
+
+Now we will modify the `cifar-10.py` and `cifar.py` with pycharm.
+The cifar.py script load the model int the cifar-10 dataset. We are not going to change cifar.py, but we need to modify the cifar-10.py.
+
+ - Line 20: `dirname = 'cifar-10-batches-py'`  add also `dirname = 'C:\Program Files\Python36\Lib\site-packages\keras\datasets\cifar-10-batches-py'`
+ the project directory where it is located.
+
+Create the python Script file called `Image-Recognition-Trainer.py`
