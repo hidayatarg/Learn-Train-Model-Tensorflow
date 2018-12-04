@@ -592,3 +592,41 @@ The cifar.py script load the model int the cifar-10 dataset. We are not going to
  the project directory where it is located.
 
 Create the python Script file called `Image-Recognition-Trainer.py`
+
+
+## Displaying Images with PIL
+We are going to import images, and manipulate them. We are using a python image library called PIL, to import images, open images and display them.
+
+We will import the:
+`from PIL import Image` Incase you get any error this packages might not be installed. You can install it by going into project interpreter an click on the `+` add button search for the `PIL` library and install it. 
+
+In the 
+
+```python
+# Import the library
+from PIL import Image  
+
+# Image Location (changing upon)
+cat_image_pathname = 'C:/Users/hp/Desktop/AIPROJECTS/Learn-Train-Model-Tensorflow/Image Recognition (CIFAR-10 Project)/Image/cat1.jpg'  
+
+# Image
+cat_image = Image.open(cat_image_pathname)  
+
+#Displaying Image  
+cat_image.show()
+```
+
+This script will display the image. 
+In the following script we take the image from the user
+```python
+from PIL import Image 
+
+# Image Location recieved from user
+display_image_pathname = input('Enter image pathname: ')  
+
+# Image
+display_image = Image.open(display_image_pathname)  
+
+#Displaying Image  
+display_image.show()
+```
